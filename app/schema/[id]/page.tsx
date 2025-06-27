@@ -1,24 +1,27 @@
 import { YDocProvider } from "app/multiplayer/ydoc-context";
-import { getServerSession } from "next-auth";
 import { authOptions } from "~/server/auth";
 import { prisma } from "~/server/db";
 import Panels from "./components/panels";
 import { SchemaHeader } from "./components/schema-header";
-import { getSchemaAsUpdate } from "../../../src/utils/schema/doc-utils";
+import { getSchemaAsUpdate } from "~/utils/schema/doc-utils";
 import { redirect } from "next/navigation";
+import { getServerSession } from "next-auth";
+import { headers } from "next/headers";
 
 const demoRoomId = -1;
 
-const Schema = async ({
+export default async function SchemaPage({
   params,
   searchParams,
 }: {
   params: { id: string };
-  searchParams: { token: string };
-}) => {
+  searchParams: { token?: string };
+}) {
   const id = +params.id;
   const isDemoRoom = id === demoRoomId;
+
   const session = await getServerSession(authOptions);
+
   if (!session && !isDemoRoom) {
     redirect("/api/auth/signin");
   }
@@ -48,20 +51,24 @@ const Schema = async ({
 
   if (doc?.shareSchema && searchParams.token === doc.shareSchema.token) {
     isSchemaSharedWith = true;
-    await prisma.shareSchema.update({
-      data: { sharedUsers: { connect: { id: session?.user.id } } },
-      where: { id: doc.shareSchema.id },
-    });
+
+    // Connect user to shared schema
+    if (session?.user.id) {
+      await prisma.shareSchema.update({
+        data: { sharedUsers: { connect: { id: session.user.id } } },
+        where: { id: doc.shareSchema.id },
+      });
+    }
   }
 
   if (!isOwner && !isSchemaSharedWith) {
-    return <div>You can not view this schema</div>;
+    return <div>You cannot view this schema</div>;
   }
 
   if (!doc && isDemoRoom) {
     await prisma.schema.create({
       data: {
-        id: id,
+        id,
         title: "Demo",
         userId: "clgkzdihb000056y0oe80qo5s", // demo user
         YDoc: getSchemaAsUpdate(),
@@ -115,6 +122,4 @@ const Schema = async ({
       </YDocProvider>
     </div>
   );
-};
-
-export default Schema;
+}
