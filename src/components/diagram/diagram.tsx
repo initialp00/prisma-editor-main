@@ -49,16 +49,25 @@ const Diagram = () => {
     []
   );
 
-  // Custom node change handler
+  // Custom node change handler with type fallback
   const handleNodesChange = useCallback(
     (changes: NodeChange[]) => {
       setNodes((prevNodes) => {
-        const clonedPreviousNodes = JSON.parse(JSON.stringify(prevNodes)) as Node<any, string>[];
-        const updatedNodes = applyNodeChanges(changes, clonedPreviousNodes);
-        const hasPositionChange = changes.some(
-          (change) => "position" in change
-        );
+        const clonedPreviousNodes = JSON.parse(
+          JSON.stringify(prevNodes)
+        ) as Node<any, string>[];
+
+        const updatedNodes = applyNodeChanges(
+          changes,
+          clonedPreviousNodes
+        ).map((node) => ({
+          ...node,
+          type: node.type ?? "default", // ✅ Fix: ensure `type` is always a string
+        }));
+
+        const hasPositionChange = changes.some((change) => "position" in change);
         if (hasPositionChange) updateServerNodes(updatedNodes);
+
         return updatedNodes;
       });
     },
@@ -131,6 +140,7 @@ const Diagram = () => {
                 fill="none"
               />
             </marker>
+
             <marker
               id="relation-one-selected"
               markerWidth="12.5"
@@ -189,6 +199,7 @@ const Diagram = () => {
                 fill="none"
               />
             </marker>
+
             <marker
               id="relation-many-selected"
               markerWidth="12.5"
@@ -247,6 +258,7 @@ const Diagram = () => {
                 fill="none"
               />
             </marker>
+
             <marker
               id="relation-one-selected-dark"
               markerWidth="12.5"
@@ -305,6 +317,7 @@ const Diagram = () => {
                 fill="none"
               />
             </marker>
+
             <marker
               id="relation-many-selected-dark"
               markerWidth="12.5"
