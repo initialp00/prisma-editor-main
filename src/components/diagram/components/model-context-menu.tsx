@@ -14,7 +14,7 @@ import { Dialog } from "~/components/ui/dialog";
 import AddOrUpdateModelDialogContent from "./add-or-update-model-dialog-content";
 import AddOrUpdateModelFieldDialogContent from "./add-or-update-model-field-dialog-content";
 import { apiClient } from "~/utils/api";
-import { replaceTextDocContent } from "app/schema/[id]/doc-utils";
+import { replaceTextDocContent } from "~/utils/schema/doc-utils";
 
 const ModelContextMenu: FC<{ children: ReactNode; model: string }> = ({
   children,

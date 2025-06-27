@@ -1,9 +1,9 @@
 import {
   DMMfModifier,
-  RemoveEnumCommand
+  RemoveEnumCommand,
 } from "@mohammed-bahumaish/prisma-dmmf-modifier";
 import { useYDoc } from "app/multiplayer/ydoc-context";
-import { replaceTextDocContent } from "app/schema/[id]/doc-utils";
+import { replaceTextDocContent } from "~/utils/schema/doc-utils";
 import { useState, type FC, type ReactNode } from "react";
 import {
   ContextMenu,
@@ -20,8 +20,7 @@ const EnumContextMenu: FC<{ children: ReactNode; model: string }> = ({
   children,
   model,
 }) => {
-
-  const { isViewOnly: readOnly, getDmmf, ydoc } = useYDoc()
+  const { isViewOnly: readOnly, getDmmf, ydoc } = useYDoc();
 
   const [selectedDialog, setSelectedDialog] = useState<
     "updateModel" | "addField" | null

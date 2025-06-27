@@ -4,7 +4,7 @@ import { authOptions } from "~/server/auth";
 import { prisma } from "~/server/db";
 import Panels from "./components/panels";
 import { SchemaHeader } from "./components/schema-header";
-import { getSchemaAsUpdate } from "./doc-utils";
+import { getSchemaAsUpdate } from "../../../src/utils/schema/doc-utils";
 import { redirect } from "next/navigation";
 
 const demoRoomId = -1;

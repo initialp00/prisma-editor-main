@@ -3,7 +3,7 @@ import {
   RemoveEnumFieldCommand,
 } from "@mohammed-bahumaish/prisma-dmmf-modifier";
 import { useYDoc } from "app/multiplayer/ydoc-context";
-import { replaceTextDocContent } from "app/schema/[id]/doc-utils";
+import { replaceTextDocContent } from "~/utils/schema/doc-utils";
 import { useState, type FC, type ReactNode } from "react";
 import {
   ContextMenu,
@@ -21,7 +21,6 @@ const EnumFieldContextMenu: FC<{
   field: string;
 }> = ({ children, model, field }) => {
   const { getDmmf, ydoc, isViewOnly: readOnly } = useYDoc();
-
 
   const [selectedDialog, setSelectedDialog] = useState<"updateField" | null>(
     null

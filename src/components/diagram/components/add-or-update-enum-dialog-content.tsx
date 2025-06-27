@@ -15,7 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useYDoc } from "app/multiplayer/ydoc-context";
 import { apiClient } from "~/utils/api";
-import { replaceTextDocContent } from "app/schema/[id]/doc-utils";
+import { replaceTextDocContent } from "../../../utils/schema/doc-utils";
 
 const AddOrUpdateEnumDialogContent = ({
   enumName,

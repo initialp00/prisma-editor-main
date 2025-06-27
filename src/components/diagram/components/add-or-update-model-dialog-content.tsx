@@ -4,7 +4,7 @@ import {
   DMMfModifier,
 } from "@mohammed-bahumaish/prisma-dmmf-modifier";
 import { useYDoc } from "app/multiplayer/ydoc-context";
-import { replaceTextDocContent } from "app/schema/[id]/doc-utils";
+import { replaceTextDocContent } from "~/utils/schema/doc-utils";
 import { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";

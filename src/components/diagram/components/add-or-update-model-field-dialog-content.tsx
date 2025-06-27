@@ -13,7 +13,7 @@ import {
 } from "~/components/ui/dialog";
 import { type ModelNodeData } from "../util/types";
 import AddModelFieldForm from "./add-model-field-form";
-import { replaceTextDocContent } from "app/schema/[id]/doc-utils";
+import { replaceTextDocContent } from "~/utils/schema/doc-utils";
 import { apiClient } from "~/utils/api";
 
 const AddOrUpdateModelFieldDialogContent = ({
