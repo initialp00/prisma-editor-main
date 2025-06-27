@@ -6,7 +6,6 @@ import { SchemaHeader } from "./components/schema-header";
 import { getSchemaAsUpdate } from "~/utils/schema/doc-utils";
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { headers } from "next/headers";
 
 const demoRoomId = -1;
 
